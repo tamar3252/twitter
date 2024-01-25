@@ -10,7 +10,7 @@ export const signupFunc = async (req: typeof ExpressRequest) => {
         return { status: 400, value: { data: "ERROR: invalid comment details " + validBody.error.details[0].message } }
     }
     try {
-        const user = await addUser(req)
+        const user = await addUser(req.body)
         let token = createToken(user._id, user.role);
         return { status: 200, value: { data: { token: `Bearer ${token}`, user } } }
         // res.header('Authorization', `Bearer ${token}`).json({data:{ token: `Bearer ${token}`, user },code:111});
@@ -30,7 +30,7 @@ export const loginFunc = async (req: typeof ExpressRequest) => {
         return { status: 400, value: { data: "ERROR: invalid comment details " + validBody.error.details[0].message } }
     }
     try {
-        const user = await findUserByEmail(req)
+        const user = await findUserByEmail(req.body.email)
 
         if (!user) {
             return { status: 401, value: { data: "ERROR: wrong user name or password" } }
