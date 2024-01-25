@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const {config} = require("./config")
+const {config} = require("./Config")
 const { Request: authRequest,respose:authResponse ,next:authNext} = require("express") ;
 
 
@@ -11,7 +11,7 @@ export const authUser = (req:typeof authRequest,res: typeof authResponse,next:ty
   }
   try{
     
-    let decodeToken = jwt.verify(token,"tamar12");    
+    let decodeToken = jwt.verify(token, config.tokenSecret);    
     req.tokenData = decodeToken;
     next();
   }
