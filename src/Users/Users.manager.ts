@@ -6,8 +6,6 @@ const { Request: ExpressRequest} = require("express");
 export const signupFunc = async (req: typeof ExpressRequest) => {
     let validBody = userValidation(req.body);
     if (validBody.error) {
-        console.log('xfcvbnm,l;kmb');
-
         return { status: 400, value: { data: "ERROR: invalid comment details " + validBody.error.details[0].message } }
     }
     try {
