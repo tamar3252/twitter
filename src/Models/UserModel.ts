@@ -9,7 +9,7 @@ type User = {
     password: string;
     role: "admin" | "user";
     follows: Types.ObjectId[];
-};
+}
 
 type UserDocument = User & Document;
 

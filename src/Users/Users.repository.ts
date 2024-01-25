@@ -2,16 +2,16 @@ const { UserModel } = require("../Models/UserModel");
 const { Request: ExpressRequest } = require("express");
 const bcrypt = require("bcrypt");
 
-export const findUserByEmail = async (req: typeof ExpressRequest) => {
-    return await UserModel.findOne({ email: req.body.email })
+export const findUserByEmail = async (email: String) => {
+    return await UserModel.findOne({ email})
 }
 
 export const findUserById = async (_id: String) => {
     return await UserModel.findOne({ _id })
 }
 
-export const addUser = async (req: typeof ExpressRequest) => {
-    let user = await new UserModel(req.body);
+export const addUser = async (userObj: Object) => {
+    let user = await new UserModel(userObj);
     user.password = await bcrypt.hash(user.password, 10);
     await user.save();
     user.password = "********";

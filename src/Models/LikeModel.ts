@@ -1,8 +1,15 @@
-const mongooseLike = require("mongoose");
+import mongoose, { Document, Schema, Types } from "mongoose";
 
-let LikeuserSchema = new mongooseLike.Schema({
-  user_id: { type: mongooseLike.Schema.Types.ObjectId, ref: "users" },
-  tweet_id: { type: mongooseLike.Schema.Types.ObjectId, ref: "tweets" },
+type Like = {
+  user_id: Types.ObjectId,
+  tweet_id: Types.ObjectId,
+}
+
+type LikeDocument = Like & Document
+
+let LikeuserSchema = new Schema<LikeDocument>({
+  user_id: { type: Schema.Types.ObjectId, ref: "users" },
+  tweet_id: { type: Schema.Types.ObjectId, ref: "tweets" },
 })
 
-exports.UserModel = mongooseLike.model("likes", LikeuserSchema);
+exports.UserModel = mongoose.model("likes", LikeuserSchema);
