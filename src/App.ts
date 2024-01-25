@@ -2,9 +2,11 @@ const express = require("express")
 const path=require('path')
 const cors = require("cors");
 const http = require('http')
-
 const cookieParser = require('cookie-parser')
+
 require("./db/ConnectDB");
+const {config} = require("./Config")
+
 
 
 const { routesInit } = require('./Router')
@@ -24,7 +26,7 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "public")))
 
-const port = 3000
+const port = config.port
 
 routesInit(app);
 
