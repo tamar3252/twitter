@@ -9,7 +9,6 @@ type User = {
     password: string;
     role: "admin" | "user";
     follows: Types.ObjectId[];
-    is_blocked:boolean
 };
 
 type UserDocument = User & Document;

@@ -1,4 +1,13 @@
-const mongoose = require("mongoose");
+import mongoose, { Document, Schema, Types } from "mongoose";
+
+type Tweet = {
+  text:String,
+  user_id: Types.ObjectId[],
+  comments: Types.ObjectId[];
+  likes: Types.ObjectId[]
+};
+
+type UserDocument = Tweet & Document;
 
 let TweetSchema = new mongoose.Schema({
   text: String,
