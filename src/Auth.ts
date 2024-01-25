@@ -3,7 +3,7 @@ const {config} = require("./config")
 const { Request: authRequest,respose:authResponse ,next:authNext} = require("express") ;
 
 
-exports.authUser = (req:typeof authRequest,res: typeof authResponse,next:typeof authNext) => {
+export const authUser = (req:typeof authRequest,res: typeof authResponse,next:typeof authNext) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader
   if(!token){

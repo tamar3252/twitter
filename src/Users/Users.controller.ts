@@ -1,7 +1,7 @@
 const { loginFunc,signupFunc,addFollowerFunc,removeFollowerFunc,changeToManagerFunc } = require('./Users.manager')
 const { Request: ExpressRequest,respose:ExpressResponse } = require("express") ;
 
-exports.userCtrl = {
+export const userCtrl = {
     login: async (req:typeof ExpressRequest, res:typeof ExpressResponse) => {
         const respose =await loginFunc(req);
         res.status(respose.status).json(respose.value)

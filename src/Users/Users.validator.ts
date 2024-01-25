@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-exports.userValidation = (reqBody: Object) => {
+export const userValidation = (reqBody: Object) => {
   let joiSchema = Joi.object({
     full_name: {
       first_name: Joi.string().min(2).max(50).required(),
@@ -14,7 +14,7 @@ exports.userValidation = (reqBody: Object) => {
 }
 
 
-exports.loginValidation = (reqBody: Object) => {
+export const loginValidation = (reqBody: Object) => {
 
   let joiSchema = Joi.object({
     email: Joi.string().email().max(99).required(),
