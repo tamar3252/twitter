@@ -13,7 +13,6 @@ export const userValidation = (reqBody: Object) => {
   return joiSchema.validate(reqBody);
 }
 
-
 export const loginValidation = (reqBody: Object) => {
 
   let joiSchema = Joi.object({
