@@ -59,7 +59,7 @@ export const getUserDetailsFunc = async (req: typeof ExpressRequest) => {
         return { status: 200, value: { data: user } }
     }
     catch (err) {
-        return { status: 500, value: { data: err.messageerr. } }
+        return { status: 500, value: { data: err.messageerr } }
     }
 }
 
