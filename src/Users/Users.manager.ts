@@ -6,7 +6,6 @@ const { Request: ExpressRequest} = require("express");
 export const signupFunc = async (req: typeof ExpressRequest) => {
     let validBody = userValidation(req.body);
     if (validBody.error) {
-
         return { status: 400, value: { data: "ERROR: invalid comment details " + validBody.error.details[0].message } }
     }
     try {
@@ -33,12 +32,12 @@ export const loginFunc = async (req: typeof ExpressRequest) => {
         const user = await findUserByEmail(req.body.email)
 
         if (!user) {
-            return { status: 401, value: { data: "ERROR: wrong user name or password" } }
+            return { status: 500, value: { data: "ERROR: wrong user name or password" } }
         }
 
         let authPassword = await checkPassword(req.body.password, user.password);
         if (!authPassword) {
-            return { status: 401, value: { data: "ERROR: wrong user name or password" } }
+            return { status: 500, value: { data: "ERROR: wrong user name or password" } }
         }
         let token = createToken(user._id, user.role)
         return { status: 200, value: { data: { token: `Bearer ${token}`, user } } }
@@ -54,7 +53,7 @@ export const getUserDetailsFunc = async (req: typeof ExpressRequest) => {
     try {
         const user = await findUserById(userId)
         if (!user) {
-            return { status: 400, value: { data: "ERROR: user not found" } }
+            return { status: 500, value: { data: "ERROR: user not found" } }
         }
         return { status: 200, value: { data: user } }
     }
@@ -75,9 +74,9 @@ export const addFollowerFunc = async (req: typeof ExpressRequest) => {
     try {
         const response = await addFollower(userId, userToFollowId)
         if (response.matchedCount == 0)
-            return { status: 400, value: { data: 'user id not found' } }
+            return { status: 500, value: { data: 'user id not found' } }
         if (response.modifiedCount == 0)
-            return { status: 400, value: { data: 'you already follow this user' } }
+            return { status: 500, value: { data: 'you already follow this user' } }
         return { status: 200, value: { data: 'success' } }
     }
     catch (err) {
@@ -97,9 +96,9 @@ export const removeFollowerFunc = async (req: typeof ExpressRequest) => {
     try {        
         const response =await removeFollower(userId, userToFollowId)        
         if (response.matchedCount == 0)
-            return { status: 400, value: { data: 'user id not found' } }
+            return { status: 500, value: { data: 'user id not found' } }
         if (response.modifiedCount == 0)
-            return { status: 400, value: { data: 'you dont follow this user' } }
+            return { status: 500, value: { data: 'you dont follow this user' } }
         return { status: 200, value: { data: 'success' } }
     }
     catch (err) {
@@ -112,7 +111,7 @@ export const changeToManagerFunc = (req: typeof ExpressRequest) => {
     try {
         const response = changeToManager(userId)
         if (!response) {
-            return { status: 400, value: { data: response } }
+            return { status: 500, value: { data: response } }
         }
         return { status: 200, value: { data: 'seccess' } }
     }
