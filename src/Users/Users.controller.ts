@@ -1,4 +1,4 @@
-const { loginFunc,signupFunc,addFollowerFunc,removeFollowerFunc,changeToManagerFunc } = require('./Users.manager')
+const { loginFunc,signupFunc,getUserDetailsFunc,addFollowerFunc,removeFollowerFunc,changeToManagerFunc } = require('./Users.manager')
 const { Request: ExpressRequest,respose:ExpressResponse } = require("express") ;
 
 export const userCtrl = {
@@ -8,6 +8,10 @@ export const userCtrl = {
     },
     signup: async (req:typeof ExpressRequest, res:typeof ExpressResponse) => {
         const respose =await signupFunc(req);
+        res.status(respose.status).json(respose.value)
+    },
+    getUserDetails: async (req:typeof ExpressRequest, res:typeof ExpressResponse) => {
+        const respose =await getUserDetailsFunc(req);
         res.status(respose.status).json(respose.value)
     },
     addFollower: async (req:typeof ExpressRequest, res:typeof ExpressResponse) => {
