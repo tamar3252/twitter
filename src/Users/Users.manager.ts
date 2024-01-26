@@ -20,7 +20,7 @@ export const signupFunc = async (req: typeof ExpressRequest) => {
         if (err.code == 11000) {
             return { status: 500, value: { data: "ERROR: user name or email already in system, try log in" } }
         }
-        return { status: 500, value: { data: "ERROR" } }
+        return { status: 500, value: { data: err.message } }
     }
 }
 
@@ -36,10 +36,6 @@ export const loginFunc = async (req: typeof ExpressRequest) => {
             return { status: 401, value: { data: "ERROR: wrong user name or password" } }
         }
 
-        if (user.is_blocked) {
-            return { status: 401, value: { data: "YOU ARE BLOCKED" } }
-        }
-
         let authPassword = await checkPassword(req.body.password, user.password);
         if (!authPassword) {
             return { status: 401, value: { data: "ERROR: wrong user name or password" } }
@@ -49,9 +45,24 @@ export const loginFunc = async (req: typeof ExpressRequest) => {
         //   res.header('Authorization', `Bearer ${token}`).json({data:{ token: `Bearer ${token}`, user }});    
     }
     catch (err) {
-        return { status: 500, value: { data: "ERROR" } }
+        return { status: 500, value: { data: err.message } }
     }
 }
+
+export const getUserDetailsFunc = async (req: typeof ExpressRequest) => {
+    const userId = req.tokenData.user_id;
+    try {
+        const user = await findUserById(userId)
+        if (!user) {
+            return { status: 400, value: { data: "ERROR: user not found" } }
+        }
+        return { status: 200, value: { data: user } }
+    }
+    catch (err) {
+        return { status: 500, value: { data: err.messageerr. } }
+    }
+}
+
 
 export const addFollowerFunc = async (req: typeof ExpressRequest) => {
     const userId = req.tokenData.user_id;
@@ -109,4 +120,3 @@ export const changeToManagerFunc = (req: typeof ExpressRequest) => {
         return { status: 500, value: { data: err.message } }
     }
 }
-
