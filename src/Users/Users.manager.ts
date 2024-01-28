@@ -1,6 +1,6 @@
 const { loginValidation, userValidation } = require("./Users.validator");
 const { checkPassword, createToken } = require('../Funcs')
-const { findUserByEmail, addUser, addFollower,removeFollower, changeToManager } = require('./Users.repository')
+const { findUserByEmail,findUserById, addUser, addFollower,removeFollower, changeToManager } = require('./Users.repository')
 const { Request: ExpressRequest} = require("express");
 
 export const signupFunc = async (req: typeof ExpressRequest) => {
